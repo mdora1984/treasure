@@ -1,0 +1,229 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scavenger Hunt</title>
+    <link rel="stylesheet" href="./assets/gamePageStyle.css">
+</head>
+
+<style>
+    .table{
+        border-style: hidden;
+        border-collapse: collapse;
+        padding: 10px;
+    }
+    .img{
+        height: 160px;
+        width: 160px;
+    }
+    .btn1{
+        border: none;
+        background: none;
+        cursor: pointer;
+        margin: 0;
+        padding: 0;
+    }
+</style>
+
+<body onload="onLoad()">
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+        <span class="close">&times;</span>
+        <input type="hidden" id="hdLevel" name="hdLevel" value="3487">
+
+        <p id = "pForImg1" class="pFor">you have clicked img no. 7. wow</p>
+        <p id = "pForImg2" class="pFor">solve : 1+2 = ____</p>
+        <p id = "pForImg3" class="pFor">solve : 1+3 = ____</p>
+        <p id = "pForImg4" class="pFor">solve : 1+4 = ____</p>
+        <p id = "pForImg5" class="pFor">solve : 1+5 = ____</p>
+        <p id = "pForImg6" class="pFor">solve : 1+6 = ____</p>
+        <p id = "pForImg7" class="pFor">solve : 1+7 = ____</p>
+        <p id = "pForImg8" class="pFor">solve : 1+8 = ____</p>
+        <p id = "pForImg9" class="pFor">solve : 1+9 = ____</p>
+        <p id = "correctAns" class="pFor">solve : 1+9 = ____</p>
+        <form action="/saveAns" method="post"><input id = "ans" type="text"><button onclick="userInput()" id = "submit">submit</button></form>
+        </div>
+    </div>
+
+    <table>
+        <tr>
+            <td>
+                <div class="divImg">
+                    <label style="font: red;">Madhu is Boss</label>
+                    <img class="img" onclick="showRiddle(1)" src="../resources/1.jpg" alt="">
+                    <div id = "divLock1" class="lock">
+                        <img class="lock" src="../resources/lock.png" alt="">
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="divImg">
+                    <img class="img" onclick="showRiddle(2)" src="../resources/2.jpg" alt="">
+                    <div id = "divLock2" class="lock">
+                        <img class="lock" src="../resources/lock.png" alt="">
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="divImg">
+                    <img class="img" onclick="showRiddle(3)" src="../resources/3.jpg" alt="">
+                    <div id = "divLock3" class="lock">
+                        <img class="lock" src="../resources/lock.png" alt="">
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="divImg">
+                    <img class="img" onclick="showRiddle(4)" src="../resources/4.jpg" alt="">
+                    <div id = "divLock4" class="lock">
+                        <img class="lock" src="../resources/lock.png" alt="">
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="divImg">
+                    <img class="img" onclick="showRiddle(5)" src="../resources/5.jpg" alt="">
+                    <div id = "divLock5" class="lock">
+                        <img class="lock" src="../resources/lock.png" alt="">
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="divImg">
+                    <img class="img" onclick="showRiddle(6)" src="../resources/6.jpg" alt="">
+                    <div id = "divLock6" class="lock">
+                        <img class="lock" src="../resources/lock.png" alt="">
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="divImg">
+                    <img class="img" onclick="showRiddle(7)" src="../resources/7.jpg" alt="">
+                    <div id = "divLock7" class="lock">
+                        <img src="../resources/lock.png" alt="">
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="divImg">
+                    <img class="img" onclick="showRiddle(8)" src="../resources/8.jpg" alt="">
+                    <div id = "divLock8" class="lock">
+                        <img src="../resources/lock.png" alt="">
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="divImg">
+                    <img class="img" onclick="showRiddle(9)" src="../resources/9.jpg" alt="">
+                    <div id = "divLock9" class="lock">
+                        <img class="lock" src="../resources/lock.png" alt="">
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+
+<script type="text/javascript" src="./gamePage.js"></script>
+
+<script>
+    var Qno = 0;
+    var levelUnlocked = 0;
+
+    var startTime = (new Date()).getTime();
+    var endTime = (new Date()).getTime();
+
+
+    function onLoad(){
+        levelUnlocked = getCookie("levelUnlocked");
+        // alert(levelUnlocked);
+        for(let i = 1; i <= levelUnlocked; i++){
+            lockID = document.getElementById("divLock"+[i]);
+            lockID.style.display = "none";
+        }
+    } 
+
+    function getCookie(cname){
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) 
+      {
+      var c = ca[i].trim();
+      if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+      }
+    return "";
+}
+
+    function setCookie(c_name,value,exdays) {
+        var exdate = new Date();
+        exdate.setDate(exdate.getDate() + exdays);
+        var c_value = escape(value) + ((exdays==null) ? "" : ";    expires="+exdate.toUTCString());
+        document.cookie=c_name + "=" + c_value;
+    }
+
+    const ansKey = [10, "hello", 3, "Bangalore", "Maddy", "ADHD", 69, "Unholy", "sim"];
+
+    var modal = document.getElementById("myModal");
+    riddle1 = document.getElementById("pForImg1");
+    riddle2 = document.getElementById("pForImg2");
+    riddle3 = document.getElementById("pForImg3");
+    riddle4 = document.getElementById("pForImg4");
+    riddle5 = document.getElementById("pForImg5");
+    riddle6 = document.getElementById("pForImg6");
+    riddle7 = document.getElementById("pForImg7");
+    riddle8 = document.getElementById("pForImg8");
+    riddle9 = document.getElementById("pForImg9");
+
+    function showRiddle(k){
+        startTime = (new Date()).getTime();
+
+        Qno = k;
+        if(Qno - levelUnlocked != 1){
+            alert("please answer all the previous qs before attempting this one");
+            return;
+        }
+        riddle = document.getElementById("pForImg" + Qno);
+        riddle1.style.display = "none";
+        riddle2.style.display = "none";
+        riddle3.style.display = "none";
+        riddle4.style.display = "none";
+        riddle5.style.display = "none";
+        riddle6.style.display = "none";
+        riddle7.style.display = "none";
+        riddle8.style.display = "none";
+        riddle9.style.display = "none";
+        
+        riddle.style.display = "block";
+        modal.style.display = "block";
+    }
+    
+    function userInput(){
+        var answer = document.getElementById("ans").value;
+        var lockID = document.getElementById("divLock" + Qno);
+        if(ansKey[Qno-1] == answer){
+            // alert("True");
+            endTime = (new Date()).getTime();
+            var timeSpent = (endTime - startTime)/1000 ;
+            alert(timeSpent);
+            lockID.style.display = "none";
+            modal.style.display = "none";
+            levelUnlocked++;
+            setCookie("levelUnlocked", levelUnlocked, 2);
+          
+        }
+    }
+    
+    var closeBtn = document.getElementsByClassName("close")[0];
+    closeBtn.onclick = function close() {
+        modal.style.display = "none";
+    }
+
+</script>
+</html>

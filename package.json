@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "json-parser": "^3.1.2",
+    "mysql": "^2.18.1",
+    "netlify-lambda": "^2.0.16",
+    "parse-json": "^7.0.0",
+    "req-flash": "^0.0.3",
+    "serverless-http": "^3.2.0"
+  },
+  "name": "doram",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
