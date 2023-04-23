@@ -22,10 +22,10 @@ app.use('/assets', express.static('assets'));
 app.use('/resources', express.static('resources'));
 
 var connection = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password:"Apto123",
-    database: "treasure_hunt"
+    host: "sql12.freemysqlhosting.net",
+    user: "sql12614019",
+    password:"WrVSrP1R4R",
+    database: "sql12614019"
 });
 
 connection.connect(function(err){
